@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, render_template, redirect, Response, session, url_for, request
+from flask_compress import Compress
 from werkzeug.exceptions import BadRequest
 from hashlib import sha256
 import time
@@ -15,6 +16,9 @@ def create_app() -> Flask:
     # Flask app initialization
     app = Flask(__name__)
     app.config['SECRET_KEY'] = sha256(time.localtime().__str__().encode("utf-8")).__str__()
+    Compress(app)
+
+    # Setting up the database
     client = MongoClient(MONGO_HOST, MONGO_PORT)
     db_base = client["notes"]
     db = db_base["notes"]
