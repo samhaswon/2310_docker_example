@@ -45,8 +45,10 @@ function delete_it() {
 function render() {
     /* Open and replace the iframe with the newly rendered markdown */
     render_window.open();
-    render_window.write(`<html><head><link rel="stylesheet" type="text/css" href="/static/styles.css"></head>${marked.parse(markdown_box.value)}</html>`);
+    render_window.write(`<html><head><link rel="stylesheet" type="text/css" href="/static/styles.css"></head><body>${marked.parse(markdown_box.value)}</body></html>`);
     render_window.close();
+    /* Make the iframe follow the page's current theme */
+    render_window.querySelector("html").setAttribute("data-theme", currentThemeSetting);
 };
 
 /* Saves a note based on its title */

@@ -1,4 +1,4 @@
-/* Shamelessly stolen from here: https://github.com/samhaswon/selfhosted-bible/blob/main/static/styles_readable.css */
+/* (Mostly) Shamelessly stolen from here: https://github.com/samhaswon/selfhosted-bible/blob/main/static/styles_readable.css */
 .tab,label {
     display: inline-block
 }
@@ -491,6 +491,9 @@ label {
     html {
         background-color: #fff
     }
+    textarea {
+        background: #fff
+    }
     .sr-only {
         color: #00;
     }
@@ -508,7 +511,7 @@ label {
         background-color: #222
     }
 
-    button,input,optgroup,select,textarea {
+    button,input,optgroup,select {
         color: inherit;
     }
 
@@ -545,6 +548,10 @@ label {
         background-color: #212435
     }
 
+    textarea {
+        background: #212435
+    }
+
     .btn-default,.form-control,.passage-form {
         background-color: #010420;
         border-color: #a5b5f5;
@@ -555,7 +562,7 @@ label {
         background-color: #000331
     }
 
-    button,input,optgroup,select,textarea {
+    button,input,optgroup,select {
         color: #ededed;
         background: #000331;
     }
