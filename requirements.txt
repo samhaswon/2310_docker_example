@@ -1,0 +1,8 @@
+Brotli==1.1.0
+Flask==3.0.3
+Flask-WTF==1.2.1
+pymongo==4.6.3
+WTForms==3.1.2
+Werkzeug==3.0.2
+# Waitress is required for the conainer, but not for development
+waitress==3.0.0

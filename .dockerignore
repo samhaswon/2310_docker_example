@@ -1,0 +1,13 @@
+# Python files
+*__pycache__/
+*.pyc
+.venv/
+.idea/
+
+# Repo files
+README.md
+docker-compose.yml
+.git
+.gitignore
+.dockerignore
+LICENSE

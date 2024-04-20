@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% import "form_make.html" as form_make %}
+
+{% block title %}{{ note.get("Title") }}{% endblock %}
+{% block content %}
+    <div class="container" align="center">
+        <input class="btn btn-default" type="text" style="width: 30%" id="title-in" value="{{ note.get('Title') }}">
+        <h1 id="the-title" style="width: 50%;">{{ note.get("Title") }}</h1>
+        <button class="btn btn-default" style="width: 30%" id="save-button">Save</button>
+    </div>
+    <div class="container">
+        <textarea style="width: 50%" id="markdown">{{ note.get("Content") }}</textarea>
+        <iframe style="border: none; width: 50%; height: 80vh;" id="content-frame"></iframe>
+    </div>
+    <div align="center">
+        <button class="btn btn-default" id="delete-button">Delete</button>
+    </div>
+    <!-- Markdown rendering JS -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='note.js') }}"></script>
+{% endblock %}

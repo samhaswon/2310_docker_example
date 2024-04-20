@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "form_make.html" as form_make %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+    <div class="container-fluid mw-100" align="center">
+        <form method="post" role="form">
+            <input class="btn btn-default" type="button" id="New" name="New" value="New Note" onclick="redirectToPage('New')"><br>
+            {% if titles|length %}
+                {% for title in titles %}
+                    <input class="btn btn-default" type="button" id="{{ title }}" name="{{ title }}" value="{{ title }}" onclick="redirectToPage('{{ title }}')">
+                {% endfor %}
+            {% endif %}
+        </form>
+    </div>
+    <script>
+    function redirectToPage(id) {
+      const inputData = document.getElementById(id).value;
+      const redirectUrl = 'notes?data=' + encodeURIComponent(inputData);
+      window.location.href = redirectUrl;
+    }
+    </script>
+{% endblock %}

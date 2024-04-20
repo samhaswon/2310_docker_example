@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    notes:            # The server container we are building
+      build: .
+      container_name: notes
+      image: notes
+      restart: always
+      ports:
+        - "5000:5000"
+    mongo:            # The database for our server
+      container_name: mongo
+      image: mongo
+      ports:
+        - "27017:27017"

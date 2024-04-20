@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% block doc -%}
+<html lang="en">
+<head>
+    {%- block head %}
+        <script>
+            function calculateSettingAsThemeString({ localStorageTheme, systemSettingDark }) {
+                if (localStorageTheme !== null) {
+                    return localStorageTheme;
+                }
+                if (systemSettingDark.matches) {
+                    return "dark";
+                }
+                return "light";
+            }
+            function updateThemeOnHtmlEl({ theme }) {
+              document.querySelector("html").setAttribute("data-theme", theme);
+            }
+            const localStorageTheme = localStorage.getItem("theme");
+            const systemSettingDark = window.matchMedia("(prefers-color-scheme: dark)");
+            let currentThemeSetting = calculateSettingAsThemeString({ localStorageTheme, systemSettingDark });
+            updateThemeOnHtmlEl({ theme: currentThemeSetting });
+        </script>
+        <title>{% block title %}{{ title | default }}{% endblock title %}</title>
+        {%- block metas %}
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset="utf-8">
+            <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        {%- endblock metas %}
+        {%- block styles %}
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+            <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg">
+        {%- endblock styles %}
+    {%- endblock head %}
+</head>
+{% block body %}
+    {% block navbar %}
+        <div class="navbar navbar-inverse mw-100" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button
+                        type="button"
+                        class="navbar-brand btn-nav"
+                        data-theme-toggle
+                        aria-label="🌞">
+                        🌞
+                    </button>
+                    <a class="navbar-brand" href="/">My Notes!</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <!--
+                        <li><a href="/search">Search</a></li>
+                        <li><a href="/copyright">Copyright</a></li>
+                        -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endblock navbar %}
+    {% block content %}
+    {% endblock content %}
+    <script>
+        const button = document.querySelector("[data-theme-toggle]");
+
+        function updateButton({ buttonEl, isDark }) {
+          const newCta = isDark ? "🌞": "🌙";
+          buttonEl.setAttribute("aria-label", newCta);
+          buttonEl.innerText = newCta;
+        }
+        updateButton({ buttonEl: button, isDark: currentThemeSetting === "dark" });
+        updateThemeOnHtmlEl({ theme: currentThemeSetting });
+
+        button.addEventListener("click", (event) => {
+            const newTheme = currentThemeSetting === "dark" ? "light" : "dark";
+
+            localStorage.setItem("theme", newTheme);
+            updateButton({ buttonEl: button, isDark: newTheme === "dark" });
+            updateThemeOnHtmlEl({ theme: newTheme });
+
+            currentThemeSetting = newTheme;
+        });
+    </script>
+{% endblock body %}
+</html>
+{% endblock doc -%}
